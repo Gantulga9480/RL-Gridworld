@@ -107,11 +107,8 @@ class Grid(Tk):
             TABLE = np.load("v_table.npy")
         except FileNotFoundError:
             TABLE = np.zeros((len(ENVI), len(ENVI)))
-        try:
-            g = play.Play(envi=ENVI, table=TABLE, size=len(TABLE))
-            g.play(visual=self.s.get())
-        except game.NoAgent:
-            self.message("Agent not placed!")
+        g = play.Play(envi=ENVI, table=TABLE, size=len(TABLE))
+        g.play(visual=self.s.get())
         del(g)
 
     def inserAgent(self):

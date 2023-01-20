@@ -19,7 +19,7 @@ class Create(game.GridWorld):
         return [x, y]
 
     def create_env(self):
-        self.ssenvi = np.zeros((self.envi_len, self.envi_len))
+        self.envi = np.zeros((self.envi_len, self.envi_len))
         self.v_table = np.zeros((self.envi_len, self.envi_len))
         game.pygame.display.set_caption(f"Make Env - {self.hole_count}")
         while self.run:
@@ -103,6 +103,7 @@ class InsertAgent(Create):
         while self.run:
             for event in game.pygame.event.get():
                 if event.type == game.pygame.QUIT:
+                    np.save("env", self.envi)
                     self.run = False
                 if event.type == game.pygame.MOUSEBUTTONDOWN:
                     cursor_pos = event.pos

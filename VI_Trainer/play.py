@@ -15,8 +15,10 @@ class Play(game.GridWorld):
         self.path = list()
         self.prepare()
 
-    def play(self, visual=False, re=True):
+    def play(self, visual=False, re=True, exit_window=True):
         pygame.display.set_caption(f"GridWorld {self.env_len}x{self.env_len}")
+        if not self.agent or not self.target:
+            self.run = False
         while self.run:
             state = self.reset()
             self.path.append(state)
@@ -39,8 +41,8 @@ class Play(game.GridWorld):
                     self.over = True
             if not re:
                 self.run = False
-            elif not self.run and re:
-                pygame.display.quit()
+        if exit_window:
+            pygame.display.quit()
 
     def get_action(self, state):
         next_state = [[state[0]-1, state[1]], [state[0]+1, state[1]],
@@ -59,7 +61,7 @@ class Play(game.GridWorld):
     def show_env(self):
         pygame.display.set_caption(f"GridWorld {self.env_len}x{self.env_len}")
         if self.agent:
-            self.play(re=False)
+            self.play(re=False, exit_window=False)
         self.run = True
         while self.run:
             self.draw_border()

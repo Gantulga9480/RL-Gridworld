@@ -120,7 +120,7 @@ class Grid(Tk):
 
     def show_q_table(self):
         try:
-            env = np.load("env.npy")
+            env = np.load("q_table.npy")
             env_len = len(env)
             g = game.Create(size=env_len)
             g.show_table()

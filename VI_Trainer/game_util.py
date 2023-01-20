@@ -1,14 +1,10 @@
 import numpy as np
 import cv2
 import pygame
+import os
 
 
 class Image:
-
-    # class imports
-    import cv2
-    import os
-    import pygame
 
     def __init__(self):
         pass
