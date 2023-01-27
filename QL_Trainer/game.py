@@ -40,7 +40,8 @@ class Create:
         self.width = self.vel * self.size + 1
         self.height = self.width
         self.win = pygame.display.set_mode((self.width, self.height))
-        self.font = pygame.font.SysFont("arial", 40)
+        self.font_size = 20
+        self.font = pygame.font.SysFont("arial", self.font_size)
         self.font1 = pygame.font.SysFont("arial", 10)
         self.clock = pygame.time.Clock()
         self.choice = HOLE
@@ -85,14 +86,14 @@ class Create:
                 string2 = f"{round(score[1], 5)} down"
                 string3 = f"{round(score[2], 5)} left"
                 string4 = f"{round(score[3], 5)} right"
-                s = self.font1.render(string1, 1, BLACK)
+                s = self.font.render(string1, 1, BLACK)
                 self.win.blit(s, (j*self.vel+5, i*self.vel))
-                s = self.font1.render(string2, 1, BLACK)
-                self.win.blit(s, (j*self.vel+5, i*self.vel+10))
-                s = self.font1.render(string3, 1, BLACK)
-                self.win.blit(s, (j*self.vel+5, i*self.vel+20))
-                s = self.font1.render(string4, 1, BLACK)
-                self.win.blit(s, (j*self.vel+5, i*self.vel+30))
+                s = self.font.render(string2, 1, BLACK)
+                self.win.blit(s, (j*self.vel+5, i*self.vel+self.font_size))
+                s = self.font.render(string3, 1, BLACK)
+                self.win.blit(s, (j*self.vel+5, i*self.vel+self.font_size*2))
+                s = self.font.render(string4, 1, BLACK)
+                self.win.blit(s, (j*self.vel+5, i*self.vel+self.font_size*3))
 
     def show_table(self):
         pygame.display.set_caption("Q_Table")

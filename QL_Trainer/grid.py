@@ -126,7 +126,11 @@ class Grid(Tk):
             g.show_table()
             del(g)
         except FileNotFoundError:
-            self.message("No such file found!")
+            env = np.load("def/q_table_default.npy")
+            env_len = len(env)
+            g = game.Create(size=env_len)
+            g.show_table()
+            del(g)
 
     def reset(self):
         try:
