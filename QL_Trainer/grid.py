@@ -112,6 +112,7 @@ class Grid(Tk):
         g.create_env()
         del(g, inp)
         game.Image().process("img\\env_img.jpg", (220, 220), save=True)
+        self.change()
 
     def train(self):
         rl = game.Training(visual=False)
@@ -145,6 +146,15 @@ class Grid(Tk):
             os.remove("img\\env_img.jpg")
         except FileNotFoundError:
             self.sound()
+        self.change()
+
+    def change(self):
+        try:
+            img = ImageTk.PhotoImage(Image.open("img\\env_img.jpg"))
+        except FileNotFoundError:
+            img = ImageTk.PhotoImage(Image.open("QL_Trainer\\img\\default_env_img.jpg"))
+        self.label.configure(image=img)
+        self.label.image = img
 
     def optimize(self):
         o = game.Optimize()
