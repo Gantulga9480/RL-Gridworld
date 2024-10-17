@@ -152,7 +152,7 @@ class Grid(Tk):
         try:
             img = ImageTk.PhotoImage(Image.open("img\\env_img.jpg"))
         except FileNotFoundError:
-            img = ImageTk.PhotoImage(Image.open("QL_Trainer\\img\\default_env_img.jpg"))
+            img = ImageTk.PhotoImage(Image.open("img\\default_env_img.jpg"))
         self.label.configure(image=img)
         self.label.image = img
 

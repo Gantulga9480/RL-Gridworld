@@ -10,9 +10,9 @@ class Train(game.GridWorld):
         self.font1 = game.pygame.font.SysFont("arial", font_size)
         self.gamma = game.GAMMA
         self.P = game.TRANSITIONS
-        self.hole_reward = - self.env_len*self.env_len
+        self.hole_reward = - self.env_len * self.env_len
         self.target_reward = - self.hole_reward // 2
-        self.empty_step_reward = self.hole_reward // 40 / 2
+        self.empty_step_reward = 0  # self.hole_reward // 40 / 2
         ag_ta = self.get_ag_ta()
         self.agent = ag_ta[0]
         self.target = ag_ta[1]

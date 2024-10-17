@@ -118,6 +118,9 @@ class Create:
         while self.run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    if self.is_agent_placed and self.is_treasure_placed:
+                        np.save("env", self.env)
+                        np.save("q_table", self.q_table)
                     self.run = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     cursor_pos = event.pos
@@ -169,8 +172,7 @@ class Create:
                             self.env[y][x] = 0
                             self.is_treasure_placed = False
                     elif event.key == pygame.K_s:
-                        if self.is_agent_placed and self.is_treasure_placed \
-                                and self.hole_count > 0:
+                        if self.is_agent_placed and self.is_treasure_placed:
                             np.save("env", self.env)
                             np.save("q_table", self.q_table)
                             self.run = False
@@ -501,15 +503,15 @@ class Training(GridWorld):
 
     def __init__(self, visual=True):
         super().__init__(visual=visual)
-        self.epsilon = 0
-        self.gamma = 0.99
+        self.epsilon = 1
+        self.gamma = 0.999
         self.alpha = 0.9
 
     def train(self):
         self.q_table = np.zeros((self.env_len, self.env_len, 4))
         max_iter = 1000
-        epsilon_min = 0
-        epsilon_decay_val = (self.epsilon-epsilon_min) / (max_iter*0.9)
+        epsilon_min = 0.01
+        epsilon_decay_val = 0.99
         episode_reward = 0
         avg_move_count = 10
         best_action = (self.env_len - 1) * 4
@@ -557,7 +559,7 @@ class Training(GridWorld):
                                 converged = True
                                 print("converged")
                 state = new_state
-            self.epsilon = max(self.epsilon - epsilon_decay_val, epsilon_min)
+            self.epsilon = max(self.epsilon * epsilon_decay_val, epsilon_min)
             ep_reward.append(episode_reward)
             if act % show == 0:
                 np.save("q_table.npy", self.q_table)
